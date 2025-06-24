@@ -3,548 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Russ | Interactive Profile</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Under Construction</title>
+    
+    <!-- Google Fonts: Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: "Calm Neutral" - A base of warm neutrals (#F8F5F2) with a supportive, muted gold/tan (#D4BFA4) for primary actions and accents. Navy blue (#0A2342) is introduced for interactive hover states to provide clear contrast and engagement. -->
-    <!-- Application Structure Plan: The SPA is structured as an interactive dashboard, allowing users to explore different facets of the profile at will. A persistent top navigation bar (Home, Services, About & Expertise, AI & Growth, AI Trajectory, Approach, ROI) allows for non-linear exploration. The structure is designed to answer a potential client's questions in a logical sequence: Who are you? (Home) -> What can you do for me? (Services, presented vaguely yet clearly with augmentation focus) -> Who is Russ and what's his core expertise? (About & Expertise, with a link to more work/LinkedIn) -> How is AI shaping the future of business? (AI & Growth, now with interactive flip cards) -> What does AI-driven growth look like over time? (AI Trajectory) -> How do you work? (Approach) -> What's the value? (ROI). This structure balances introducing core offerings first with highlighting advanced AI concepts, empowering users to find the information they need most. -->
-    <!-- Visualization & Content Choices: 
-        - Report Info: Service Offerings -> Goal: Organize & Detail with Intrigue -> Viz/Method: Interactive Tabbed Interface with Unicode Icons -> Interaction: User clicks tabs (Workflow Augmentation, Systems Enhancement, etc.) to view concise, benefit-driven capabilities, encouraging them to book a call for specifics -> Justification: Removes specific app names, focuses on the high-level augmentation theme, and uses abstract Unicode visuals as requested to maintain intrigue while providing clarity.
-        - Report Info: Client Engagement Methodology -> Goal: Build trust & clarify process -> Viz/Method: Styled HTML/CSS Flowchart -> Interaction: Subtle hover effects on steps -> Justification: Visualizes the client journey simply and effectively without needing heavy libraries.
-        - Report Info: Value Proposition (Time/Money Saved) -> Goal: Quantify the benefit of augmentation -> Viz/Method: Interactive ROI Calculator with a Chart.js Bar Chart -> Interaction: User adjusts sliders for hours saved and billable rate to see tangible financial impact -> Justification: Required by the prompt and perfectly aligns with the brand mission. It makes the abstract value of "augmentation" concrete and compelling.
-        - Report Info: Technology Stack (summarized) & Russ's Background -> Goal: Provide credibility & outline expertise with external link -> Viz/Method: Textual overview with a list of key technology categories and a button link -> Interaction: Button click to external profile/work page -> Justification: Reintegrates removed "Tech Stack" information into a dedicated "About" section and adds a clear call to action for further exploration of Russ's background/portfolio.
-        - Report Info: AI's Role in Growth (Updated Section) -> Goal: Educate and engage on AI's impact with higher visual appeal -> Viz/Method: Interactive Flip Cards with numbered titles and icons -> Interaction: Hover to flip, revealing concise explanations on the back -> Justification: Addresses the user's request for more interactive, eye-catching, and simplistic presentation of this content, emphasizing "augmentation" and "inevitability" with visual flair and improved card height.
-        - Report Info: AI Growth Trajectory (New Section) -> Goal: Visualize the historical and projected impact of AI on business growth -> Viz/Method: Line Chart (Chart.js) -> Interaction: None (static historical/projected view) -> Justification: Directly fulfills the request to show a graph of growth over 3 phases since GPT's introduction, providing a compelling visual narrative of AI's increasing influence and inevitability.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F8F5F2;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
-        }
-        .nav-link {
-            transition: color 0.3s ease;
-        }
-        .nav-link:hover {
-            color: #0A2342; /* Navy blue on hover for navigation links */
-        }
-        .tech-pill {
-            transition: all 0.3s ease;
-        }
-        .accent-bg { background-color: #D4BFA4; }
-        .accent-text { color: #D4BFA4; }
-        .accent-border { border-color: #D4BFA4; }
-        /* New navy blue colors for contrast */
-        .navy-primary-bg { background-color: #0A2342; }
-        .navy-text { color: #0A2342; }
-        .navy-primary-bg-hover:hover { background-color: #1A3A63; } /* Slightly lighter navy for hover */
-
-        /* Flip Card Specific Styles */
-        .flip-card {
-            perspective: 1000px;
-            height: 250px; /* Increased height for more presence */
-            width: 100%;
-        }
-
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
             height: 100%;
-            text-align: center;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border-radius: 0.5rem; /* rounded-lg */
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+            /* The blurred background effect using a gradient */
+            background: linear-gradient(160deg, #525a65, #2c3038);
+            background-size: cover;
+            overflow: hidden;
         }
 
-        .flip-card:hover .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden; /* Safari */
-            backface-visibility: hidden;
+        /* Main container for centering content */
+        .container {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 1.5rem; /* p-6 */
-            border-radius: 0.5rem; /* rounded-lg */
-            border: 1px solid #e2e8f0; /* border-slate-200 */
+            text-align: center;
+            height: 100%;
+            padding: 20px;
+            position: relative;
         }
 
-        .flip-card-front {
-            background-color: #FFFFFF; /* bg-white */
-            color: #333333;
+        /* "Home" link in the top right */
+        .home-link {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: #a0c8e8;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+        .home-link:hover {
+            color: #ffffff;
         }
 
-        .flip-card-back {
-            background-color: #0A2342; /* navy-primary-bg */
-            color: #FFFFFF;
-            transform: rotateY(180deg);
+        /* Main heading styles */
+        .main-heading {
+            font-size: clamp(3rem, 10vw, 6rem); /* Responsive font size */
+            font-weight: 300;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin: 0 0 20px 0;
+            line-height: 1.2;
         }
-        .flip-card-icon {
-            font-size: 3rem; /* Large icon size */
-            margin-bottom: 0.5rem; /* Space between icon and number */
-            color: #D4BFA4; /* Accent color for the icon */
+
+        /* Subheading for progress bar */
+        .sub-heading {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        /* Progress bar container and labels */
+        .progress-container {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 40px;
+        }
+        
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-bottom: 8px;
+            color: #d1d5db;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+        
+        .progress-bar-fg {
+            width: 75%; /* The actual progress value */
+            height: 100%;
+            background-color: #a0c8e8;
+            border-radius: 3px;
+        }
+
+        /* "Notify Me!" Button (converted to a link) */
+        .notify-btn {
+            display: inline-block;
+            background-color: #a0c8e8;
+            color: #1f2937;
+            text-decoration: none;
+            border: none;
+            padding: 12px 28px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-bottom: 60px;
+        }
+        .notify-btn:hover {
+            background-color: #b9d7ef;
+            transform: translateY(-2px);
         }
     </style>
 </head>
-<body class="text-slate-800">
+<body>
 
-    <!-- Header & Navigation -->
-    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-40 shadow-sm">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
-            <a href="#home" class="font-bold text-xl accent-text">Russ</a>
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#services" class="nav-link font-medium text-slate-600">Services</a>
-                <a href="#about-expertise" class="nav-link font-medium text-slate-600">About & Expertise</a>
-                <a href="#ai-growth" class="nav-link font-medium text-slate-600">AI & Growth</a>
-                <a href="#ai-trajectory" class="nav-link font-medium text-slate-600">AI Trajectory</a>
-                <a href="#roi" class="nav-link font-medium text-slate-600">ROI Calculator</a>
-                <a href="#approach" class="nav-link font-medium text-slate-600">Approach</a>
-            </div>
-            <a href="https://cal.com/russvn/aiaudit" target="_blank" class="hidden md:inline-block navy-primary-bg text-white font-bold py-2 px-5 rounded-lg shadow-md navy-primary-bg-hover transition-colors">Book a Call</a>
-        </nav>
-    </header>
-
-    <main class="container mx-auto px-4 sm:px-6 lg:px-8">
-
-        <!-- Home Section -->
-        <section id="home" class="py-20 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold text-slate-900 leading-tight">
-                <span class="accent-text">Augment</span> Your Operations.
-                <br>
-                Amplify Your Impact.
-            </h1>
-            <p class="mt-6 text-lg text-slate-600 max-w-3xl mx-auto">
-                I'm Russ, an Augmentation Consultant & Systems Enhancer. I leverage a unique blend of critical thinking and technical expertise to build robust systems that eliminate bottlenecks, streamline workflows, and empower you to focus on what matters most.
-            </p>
-            <a href="https://cal.com/russvn/aiaudit" target="_blank" class="mt-8 inline-block navy-primary-bg text-white font-bold py-4 px-10 rounded-lg shadow-lg navy-primary-bg-hover transition-transform transform hover:scale-105">Book a Free Discovery Call</a>
-        </section>
-
-        <!-- Services Section -->
-        <section id="services" class="py-16 bg-white rounded-2xl shadow-lg">
-            <div class="text-center mb-12 px-6">
-                <h2 class="text-3xl font-bold">Core Services & Capabilities</h2>
-                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">This section details the primary ways I can help enhance your operations. I design and implement holistic systems tailored to your specific needs, focusing on efficiency, security, and scalability. Discover how targeted augmentation can transform your business.</p>
-            </div>
-            <div class="max-w-5xl mx-auto">
-                <div class="mb-8 flex flex-wrap justify-center border-b border-slate-200">
-                    <button data-tab="augmentation" class="service-tab-btn font-semibold py-3 px-5 text-sm md:text-base accent-text accent-border border-b-2">Workflow Augmentation</button>
-                    <button data-tab="systems" class="service-tab-btn font-semibold py-3 px-5 text-sm md:text-base text-slate-500 hover:text-navy-text">Systems & Infrastructure</button>
-                    <button data-tab="tooling" class="service-tab-btn font-semibold py-3 px-5 text-sm md:text-base text-slate-500 hover:text-navy-text">Custom Tooling</button>
-                    <button data-tab="operations" class="service-tab-btn font-semibold py-3 px-5 text-sm md:text-base text-slate-500 hover:text-navy-text">Marketing & Operations</button>
-                </div>
-
-                <div id="augmentation" class="service-tab-content grid md:grid-cols-2 gap-6 px-6">
-                    <div class="bg-slate-50 p-6 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2"><span class="mr-2 text-accent-text">&#9881;</span> Intelligent Workflow Design</h4>
-                        <p class="text-slate-600">Elevate your operational efficiency with bespoke solutions that seamlessly connect disparate processes, transforming complex tasks into fluid, interconnected digital experiences.</p>
-                    </div>
-                    <div class="bg-slate-50 p-6 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2"><span class="mr-2 text-accent-text">&#128279;</span> Unified System Integration</h4>
-                        <p class="text-slate-600">Bridge the gaps between your various platforms and services. I engineer custom integrations that create a cohesive digital ecosystem, enabling effortless data flow and enhanced communication.</p>
-                    </div>
-                </div>
-                <div id="systems" class="service-tab-content hidden grid md:grid-cols-2 gap-6 px-6">
-                    <div class="bg-slate-50 p-6 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2"><span class="mr-2 text-accent-text">&#9729;</span> Robust Cloud Foundations</h4>
-                        <p class="text-slate-600">Establish secure, scalable, and cost-effective cloud environments designed to support your evolving business needs. I build resilient digital foundations that power your operations.</p>
-                    </div>
-                    <div class="bg-slate-50 p-6 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2"><span class="mr-2 text-accent-text">&#128274;</span> Privacy-Centric Deployments</h4>
-                        <p class="text-slate-600">Gain full control over your data with secure, self-managed solutions. I specialize in deploying enhanced applications that prioritize your privacy and provide complete ownership of your digital assets.</p>
-                    </div>
-                </div>
-                <div id="tooling" class="service-tab-content hidden grid md:grid-cols-2 gap-6 px-6">
-                     <div class="bg-slate-50 p-6 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2"><span class="mr-2 text-accent-text">&#128295;</span> Bespoke Digital Utilities</h4>
-                        <p class="text-slate-600">From intelligent data extraction to advanced content processing, I craft custom digital tools tailored to your unique challenges, designed to streamline specific, complex tasks and enhance your capabilities.</p>
-                    </div>
-                     <div class="bg-slate-50 p-6 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2"><span class="mr-2 text-accent-text">&#128161;</span> Personalized Intelligence Solutions</h4>
-                        <p class="text-slate-600">Transform raw information into actionable insights with personalized systems. Whether it's consolidating research or generating concise summaries, these solutions augment your knowledge and decision-making.</p>
-                    </div>
-                </div>
-                 <div id="operations" class="service-tab-content hidden grid md:grid-cols-2 gap-6 px-6">
-                     <div class="bg-slate-50 p-6 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2"><span class="mr-2 text-accent-text">&#128100;</span> Client Relationship Amplification</h4>
-                        <p class="text-slate-600">Enhance every touchpoint of your client journey, from initial scheduling to ongoing engagement. I build integrated systems that elevate your client experience and nurture lasting relationships.</p>
-                    </div>
-                     <div class="bg-slate-50 p-6 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2"><span class="mr-2 text-accent-text">&#128200;</span> Growth Amplification Systems</h4>
-                        <p class="text-slate-600">Design and implement intelligent frameworks for lead capture, data enrichment, and outreach campaigns. These systems are crafted to optimize your growth efforts and maximize conversion.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Russ & Core Expertise Section -->
-        <section id="about-expertise" class="py-16 bg-white rounded-2xl shadow-lg">
-            <div class="text-center mb-12 px-6">
-                <h2 class="text-3xl font-bold">About Russ & Core Expertise</h2>
-                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
-                    My background combines formal training in critical thinking with years of hands-on experience in tech innovation, systems administration, marketing, self-development (NLP/Life Coaching certified), and coding. This blend brings both technical rigor and creative, practical solutions to every project.
-                </p>
-                <h4 class="font-semibold text-xl mt-8 mb-4">Key Areas of Expertise:</h4>
-                <div class="flex flex-wrap justify-center gap-4 text-slate-700">
-                    <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Workflow Enhancement</span>
-                    <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Cloud Infrastructure</span>
-                    <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Containerization & Self-Hosting</span>
-                    <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Custom Scripting (Python)</span>
-                    <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">API Integration</span>
-                    <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Operational Dashboards</span>
-                    <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Lead Generation Systems</span>
-                    <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Secure Data Management</span>
-                </div>
-                <div class="mt-10">
-                    <a href="https://github.com/russ-bytes/Profile/augment-shaowcase" target="_blank" class="inline-block navy-primary-bg text-white font-bold py-3 px-8 rounded-lg shadow-lg navy-primary-bg-hover transition-transform transform hover:scale-105">Explore My Showcase</a>
-                    <!-- This link can be updated to your actual LinkedIn profile or a dedicated portfolio page. -->
-                </div>
-            </div>
-        </section>
-
-        <!-- AI & Growth Section (Flip Cards) -->
-        <section id="ai-growth" class="py-16">
-            <div class="text-center mb-12 px-6">
-                <h2 class="text-3xl font-bold">The Inevitable Augmentation: How AI Fuels Growth</h2>
-                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
-                    In today's rapidly evolving business landscape, Artificial Intelligence is not just a tool; it's a fundamental shift in how operations are optimized and growth is accelerated. Explore the core pillars of AI-driven enhancement.
-                </p>
-            </div>
-            <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-8 px-6">
-                <!-- Flip Card 1 -->
-                <div class="flip-card cursor-pointer">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="flip-card-icon">&#128161;</div> <!-- Lightbulb icon -->
-                            <div class="text-4xl font-bold mb-4 accent-text">01</div>
-                            <h3 class="text-xl font-semibold mb-2 text-center">Intelligent Content Synthesis</h3>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3 class="text-xl font-semibold mb-2 text-white">Intelligent Content Synthesis</h3>
-                            <p class="text-sm text-white text-center">AI transforms information overload into actionable insights by processing vast data, summarizing content, and assisting in new material creation. This augments research and content capabilities.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Flip Card 2 -->
-                <div class="flip-card cursor-pointer">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="flip-card-icon">&#9881;</div> <!-- Gear icon -->
-                            <div class="text-4xl font-bold mb-4 accent-text">02</div>
-                            <h3 class="text-xl font-semibold mb-2 text-center">Predictive Operational Efficiency</h3>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3 class="text-xl font-semibold mb-2 text-white">Predictive Operational Efficiency</h3>
-                            <p class="text-sm text-white text-center">Beyond simple scheduling, AI intelligently anticipates needs, optimizes resource allocation, and proactively manages workflows, boosting operational throughput and responsiveness.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Flip Card 3 -->
-                <div class="flip-card cursor-pointer">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="flip-card-icon">&#128065;</div> <!-- Eye icon -->
-                            <div class="text-4xl font-bold mb-4 accent-text">03</div>
-                            <h3 class="text-xl font-semibold mb-2 text-center">Proactive System Oversight</h3>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3 class="text-xl font-semibold mb-2 text-white">Proactive System Oversight</h3>
-                            <p class="text-sm text-white text-center">AI-powered 'digital twins' monitor the health and performance of your enhanced systems, identifying anomalies before they impact your business, ensuring continuous operation and critical oversight.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- AI Growth Trajectory Section -->
-        <section id="ai-trajectory" class="py-16 bg-white rounded-2xl shadow-lg">
-            <div class="text-center mb-12 px-6">
-                <h2 class="text-3xl font-bold">The Augmentation Trajectory: AI's Impact on Growth</h2>
-                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
-                    Witness the transformative power of AI on business growth since its mainstream introduction. This chart illustrates three distinct phases of operational enhancement and productivity gains, projecting the inevitable acceleration of AI-driven impact.
-                </p>
-            </div>
-            <div class="max-w-4xl mx-auto px-6">
-                <div class="chart-container">
-                    <canvas id="aiGrowthChart"></canvas>
-                </div>
-                <div class="grid md:grid-cols-3 gap-6 mt-8 text-center text-slate-600">
-                    <div>
-                        <h4 class="font-bold accent-text mb-2">Phase 1: Emergence (2022)</h4>
-                        <p class="text-sm">Initial public understanding and cautious experimentation with foundational AI models. Early adopters began to see potential for minor workflow enhancements.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-bold accent-text mb-2">Phase 2: Accelerated Adoption (2023-2024)</h4>
-                        <p class="text-sm">Widespread recognition of AI's capabilities led to broader integration, driving significant gains in efficiency across various business functions and critical thinking applications.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-bold accent-text mb-2">Phase 3: Inevitable Amplification (2025 Onward)</h4>
-                        <p class="text-sm">AI becomes deeply embedded in core operations, leading to exponential growth, novel solutions, and a fundamental reshaping of market dynamics through pervasive augmentation.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ROI Calculator Section -->
-        <section id="roi" class="py-16">
-            <div class="text-center mb-12 px-6">
-                <h2 class="text-3xl font-bold">See Your Return on Augmentation</h2>
-                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">Even a small operational enhancement has a massive impact. Use this interactive calculator to see the potential value you can reclaim by augmenting your manual tasks.</p>
-            </div>
-            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                <div class="grid md:grid-cols-2 gap-8 items-center">
-                    <div>
-                        <label for="hoursSlider" class="block font-semibold text-lg mb-2">Hours Saved Per Week: <span id="hoursValue" class="accent-text font-bold">5</span></label>
-                        <input id="hoursSlider" type="range" min="1" max="20" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
-                        
-                        <label for="rateInput" class="block font-semibold text-lg mt-6 mb-2">Your Average Billable Rate ($/hour):</label>
-                        <input id="rateInput" type="number" value="150" class="w-full p-2 border border-slate-300 rounded-lg">
-                    </div>
-                    <div>
-                        <div class="chart-container">
-                            <canvas id="roiChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <div class="container">
         
-        <!-- Approach Section -->
-        <section id="approach" class="py-16 bg-white rounded-2xl shadow-lg">
-            <div class="text-center mb-12 px-6">
-                <h2 class="text-3xl font-bold">My Approach to Augmentation</h2>
-                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">My process is built on clarity, collaboration, and delivering tangible value from day one. This flowchart outlines the typical client engagement, ensuring a transparent and effective partnership.</p>
+        <a href="https://russ-bytes.github.io/augment/" class="home-link">HOME</a>
+
+        <h1 class="main-heading">Under Construction</h1>
+
+        <div class="progress-container">
+            <p class="sub-heading">Site Nearly Ready</p>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fg"></div>
             </div>
-            <div class="relative flex flex-col md:flex-row justify-around items-center space-y-8 md:space-y-0 md:space-x-4 px-6">
-                <div class="text-center bg-slate-50 p-6 rounded-lg shadow-sm w-full md:w-56 transition-transform hover:scale-105">
-                    <div class="accent-text font-bold text-lg mb-2">1. Discovery</div>
-                    <p class="text-sm text-slate-500">An open, honest call to understand your challenges and goals. No sales pitch, just clarity.</p>
-                </div>
-                <div class="hidden md:block absolute top-1/2 left-1/4 -translate-y-1/2 -translate-x-1/2 w-1/4 h-px bg-slate-300"></div>
-                <div class="text-center bg-slate-50 p-6 rounded-lg shadow-sm w-full md:w-56 transition-transform hover:scale-105">
-                    <div class="accent-text font-bold text-lg mb-2">2. Value First</div>
-                    <p class="text-sm text-slate-500">Often, I provide a small, free augmentation or report to demonstrate capability and build trust before any commitment.</p>
-                </div>
-                <div class="hidden md:block absolute top-1/2 right-1/4 -translate-y-1/2 translate-x-1/2 w-1/4 h-px bg-slate-300"></div>
-                <div class="text-center bg-slate-50 p-6 rounded-lg shadow-sm w-full md:w-56 transition-transform hover:scale-105">
-                    <div class="accent-text font-bold text-lg mb-2">3. Build & Deploy</div>
-                    <p class="text-sm text-slate-500">I build your tailored system, prioritizing your control and security. Credentials always remain with you.</p>
-                </div>
+            <div class="progress-labels">
+                <span>0%</span>
+                <span>100%</span>
             </div>
-        </section>
+        </div>
+        
+        <a href="https://russ-bytes.github.io/augment/" class="notify-btn">Notify Me!</a>
 
-        <!-- Final CTA Section -->
-        <section class="py-20 text-center bg-white rounded-2xl shadow-lg mt-10">
-            <h2 class="text-3xl font-bold text-slate-900 mb-6">Ready to Reclaim Your Time and Amplify Your Business?</h2>
-            <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
-                Sometimes, the biggest leaps forward begin with a simple conversation. If you're tired of operational bottlenecks and ready to explore how targeted augmentation can transform your workflow, let's chat. No pressure, just a human conversation to explore what's truly possible for your business.
-            </p>
-            <a href="https://cal.com/russvn/aiaudit" target="_blank" class="mt-8 inline-block navy-primary-bg text-white font-bold py-4 px-10 rounded-lg shadow-lg navy-primary-bg-hover transition-transform transform hover:scale-105">Book Your Free Discovery Call</a>
-        </section>
-    </main>
-    
-    <footer class="text-center py-10 mt-10 border-t border-slate-200">
-        <p class="text-slate-600">&copy; 2024 Russ - Augmentation Consultant</p>
-        <p class="text-sm text-slate-500 mt-2">Connecting with you online</p>
-    </footer>
+    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Service Tabs functionality
-            const serviceTabButtons = document.querySelectorAll('.service-tab-btn');
-            const serviceTabContents = document.querySelectorAll('.service-tab-content');
-
-            serviceTabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const tab = button.dataset.tab;
-
-                    serviceTabButtons.forEach(btn => {
-                        btn.classList.remove('accent-text', 'accent-border', 'border-b-2');
-                        btn.classList.add('text-slate-500');
-                    });
-                    button.classList.add('accent-text', 'accent-border', 'border-b-2');
-                    button.classList.remove('text-slate-500');
-
-                    serviceTabContents.forEach(content => {
-                        content.id === tab ? content.classList.remove('hidden') : content.classList.add('hidden');
-                    });
-                });
-            });
-
-            // ROI Chart
-            const slider = document.getElementById('hoursSlider');
-            const rateInput = document.getElementById('rateInput');
-            const hoursValue = document.getElementById('hoursValue');
-            const ctx = document.getElementById('roiChart').getContext('2d');
-            let roiChart;
-
-            function calculateROI() {
-                const hours = parseInt(slider.value);
-                const rate = parseInt(rateInput.value) || 0;
-                hoursValue.textContent = hours;
-                const weeklySavings = hours * rate;
-                const monthlySavings = weeklySavings * 4.33;
-                const yearlySavings = monthlySavings * 12;
-                return { weeklySavings, monthlySavings, yearlySavings };
-            }
-            
-            function updateChart() {
-                const { weeklySavings, monthlySavings, yearlySavings } = calculateROI();
-                const chartData = [weeklySavings, monthlySavings, yearlySavings];
-
-                if (roiChart) {
-                    roiChart.data.datasets[0].data = chartData;
-                    roiChart.update();
-                } else {
-                    roiChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Weekly', 'Monthly', 'Yearly'],
-                            datasets: [{
-                                label: 'Potential Value Reclaimed ($)',
-                                data: chartData,
-                                backgroundColor: [
-                                    'rgba(212, 191, 164, 0.7)',
-                                    'rgba(212, 191, 164, 0.85)',
-                                    'rgba(212, 191, 164, 1)'
-                                ],
-                                borderColor: 'rgba(212, 191, 164, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: { y: { beginAtZero: true, ticks: { callback: value => '$' + value } } },
-                            plugins: {
-                                legend: { display: false },
-                                title: { display: true, text: 'Value of Reclaimed Time', font: { size: 16 } },
-                                tooltip: {
-                                    callbacks: {
-                                        label: function(context) {
-                                            let label = context.dataset.label || '';
-                                            if (label) { label += ': '; }
-                                            if (context.parsed.y !== null) {
-                                                label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
-                                            }
-                                            return label;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
-                }
-            }
-            
-            slider.addEventListener('input', updateChart);
-            rateInput.addEventListener('input', updateChart);
-            updateChart();
-
-            // AI Growth Chart
-            const aiGrowthCtx = document.getElementById('aiGrowthChart').getContext('2d');
-            new Chart(aiGrowthCtx, {
-                type: 'line',
-                data: {
-                    labels: ['2022 (GPT Intro)', '2023 (1 Year Later)', '2024 (2 Years Later)', '2025 (Projected)', '2026 (Projected)'],
-                    datasets: [{
-                        label: 'Operational Efficiency Index',
-                        data: [100, 130, 200, 350, 550], // Conceptual growth data
-                        borderColor: '#D4BFA4',
-                        backgroundColor: 'rgba(212, 191, 164, 0.2)',
-                        fill: true,
-                        tension: 0.3,
-                        pointBackgroundColor: '#D4BFA4',
-                        pointBorderColor: '#D4BFA4',
-                        pointRadius: 5,
-                        pointHoverRadius: 7
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Efficiency & Impact Index',
-                                color: '#555555'
-                            },
-                            ticks: {
-                                callback: function(value) {
-                                    return value;
-                                }
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Year',
-                                color: '#555555'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            callbacks: {
-                                title: function(context) {
-                                    return context[0].label;
-                                },
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) { label += ': '; }
-                                    label += context.parsed.y;
-                                    return label;
-                                }
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: 'Evolution of AI-Driven Operational Efficiency',
-                            font: {
-                                size: 18,
-                                weight: 'bold'
-                            },
-                            color: '#333333'
-                        }
-                    }
-                }
-            });
-        });
-    </script>
 </body>
 </html>
