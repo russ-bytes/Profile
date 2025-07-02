@@ -3,63 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Russ - AI Automations & Systems Specialist</title>
+    <title>About Russ - Automations & Systems Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #d1d5db;
+        }
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
             background: linear-gradient(145deg, #1f2937, #111827);
-            color: #d1d5db; /* text-gray-300 */
+        }
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
         }
         .card {
-            background-color: rgba(31, 41, 55, 0.5); /* bg-gray-800/50 */
-            border: 1px solid #4b5563; /* border-gray-600 */
-            border-radius: 0.75rem; /* rounded-xl */
-            padding: 1.5rem; /* p-6 */
+            background-color: rgba(31, 41, 55, 0.5);
+            border: 1px solid #4b5563;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         .card:hover {
-            border-color: #38bdf8; /* hover:border-sky-400 */
+            border-color: #38bdf8;
             transform: translateY(-5px);
         }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(56, 189, 248, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+        .card:hover::before {
+            left: 100%;
+        }
         .accent-text {
-            color: #38bdf8; /* text-sky-400 */
+            color: #38bdf8;
         }
         .section-icon {
             width: 24px;
             height: 24px;
-            margin-right: 0.75rem; /* mr-3 */
-            color: #38bdf8; /* text-sky-400 */
+            margin-right: 0.75rem;
+            color: #38bdf8;
         }
         .cta-button {
-            background-color: #0ea5e9; /* bg-sky-500 */
+            background-color: #0ea5e9;
             color: white;
             font-weight: 700;
             padding: 0.75rem 2rem;
-            border-radius: 0.5rem; /* rounded-lg */
+            border-radius: 0.5rem;
             transition: all 0.3s ease;
             box-shadow: 0 4px 14px 0 rgba(14, 165, 233, 0.39);
+            cursor: pointer;
         }
         .cta-button:hover {
-            background-color: #0284c7; /* hover:bg-sky-600 */
+            background-color: #0284c7;
             transform: scale(1.05);
         }
         .link {
-            color: #7dd3fc; /* text-sky-300 */
+            color: #7dd3fc;
             font-weight: 500;
             transition: color 0.3s ease;
         }
         .link:hover {
             color: #ffffff;
         }
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-container {
+            background-color: #1f2937;
+            border-radius: 0.75rem;
+            border: 1px solid #4b5563;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            width: 95%;
+            height: 90%;
+            max-width: 1024px;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95);
+            transition: transform 0.3s ease-in-out;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #4b5563;
+        }
+        .modal-body {
+            flex-grow: 1;
+            position: relative;
+        }
+        .modal-iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-bottom-left-radius: 0.75rem;
+            border-bottom-right-radius: 0.75rem;
+        }
+        .modal-close-btn {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .modal-close-btn:hover {
+            color: #ffffff;
+        }
+        .modal-loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            background-color: #1f2937;
+            z-index: 1;
+        }
+        body.modal-open {
+            overflow: hidden;
+        }
     </style>
 </head>
 <body class="antialiased">
-
-    <div class="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
+    <div id="particles-js"></div>
+    <div class="content-wrapper max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
 
         <!-- Header Section -->
         <header class="text-center mb-16">
@@ -70,8 +175,8 @@
                 Backend brain for hire. I hack systems, wire automations, and scale ops with code. One-man automation engine running on caffeine and chaos.
             </p>
             <div class="mt-6 flex justify-center space-x-6">
-                <a href="#" class="link">🌐 Augment Me</a>
-                <a href="#" class="link">💼 LinkedIn</a>
+                <a href="https://russ-bytes.github.io/augment" target="_blank" class="link">🌐 Augment Me</a>
+                <a href="https://www.linkedin.com/in/russel-van-niekerk-a3321423" target="_blank" class="link">💼 LinkedIn</a>
             </div>
         </header>
 
@@ -96,58 +201,16 @@
                     How I Augment Your Business
                 </h2>
                 <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Process Augmentation -->
-                    <div class="card">
-                        <h3 class="font-semibold text-xl text-white mb-3">Process Augmentation & Integration</h3>
-                        <p class="text-gray-400 mb-4">Eliminate bottlenecks and free up valuable time by connecting disparate tools and creating smooth, augmented data flows that simplify complex operations.</p>
-                        <div class="text-sm text-gray-500 border-t border-gray-700 pt-3">
-                            <p class="font-semibold text-gray-400">Example:</p>
-                            <p>For a Marketing Agency, I can augment client onboarding by integrating CRM, project management, and communication platforms to automatically trigger welcome emails and assign initial tasks.</p>
-                        </div>
-                    </div>
-                    <!-- Marketing Operations -->
-                    <div class="card">
-                        <h3 class="font-semibold text-xl text-white mb-3">Marketing Operations & Client Growth</h3>
-                        <p class="text-gray-400 mb-4">Supercharge client outreach and engagement with enhanced operational systems, from efficient client management to intelligent systems that attract and nurture new opportunities.</p>
-                         <div class="text-sm text-gray-500 border-t border-gray-700 pt-3">
-                            <p class="font-semibold text-gray-400">Example:</p>
-                            <p>For a B2B Sales Team, I can enhance pipeline management by integrating lead sources with a CRM and automated scheduling tools to ensure timely follow-ups.</p>
-                        </div>
-                    </div>
-                    <!-- Data Insights -->
-                    <div class="card">
-                        <h3 class="font-semibold text-xl text-white mb-3">Data Insights & Custom Solutions</h3>
-                        <p class="text-gray-400 mb-4">Transform data into actionable insights and solve specific challenges with custom-built tools, from intelligent data processing to unique utilities.</p>
-                         <div class="text-sm text-gray-500 border-t border-gray-700 pt-3">
-                            <p class="font-semibold text-gray-400">Example:</p>
-                            <p>For a Content Creator, I can develop a tool that automatically extracts audio transcripts from video and formats them for blog posts or social media captions.</p>
-                        </div>
-                    </div>
+                    <div class="card"><h3 class="font-semibold text-xl text-white mb-3">Process Augmentation & Integration</h3><p class="text-gray-400 mb-4">Eliminate bottlenecks and free up valuable time by connecting disparate tools and creating smooth, augmented data flows that simplify complex operations.</p><div class="text-sm text-gray-500 border-t border-gray-700 pt-3"><p class="font-semibold text-gray-400">Example:</p><p>For a Marketing Agency, I can augment client onboarding by integrating CRM, project management, and communication platforms to automatically trigger welcome emails and assign initial tasks.</p></div></div>
+                    <div class="card"><h3 class="font-semibold text-xl text-white mb-3">Marketing Operations & Client Growth</h3><p class="text-gray-400 mb-4">Supercharge client outreach and engagement with enhanced operational systems, from efficient client management to intelligent systems that attract and nurture new opportunities.</p><div class="text-sm text-gray-500 border-t border-gray-700 pt-3"><p class="font-semibold text-gray-400">Example:</p><p>For a B2B Sales Team, I can enhance pipeline management by integrating lead sources with a CRM and automated scheduling tools to ensure timely follow-ups.</p></div></div>
+                    <div class="card"><h3 class="font-semibold text-xl text-white mb-3">Data Insights & Custom Solutions</h3><p class="text-gray-400 mb-4">Transform data into actionable insights and solve specific challenges with custom-built tools, from intelligent data processing to unique utilities.</p><div class="text-sm text-gray-500 border-t border-gray-700 pt-3"><p class="font-semibold text-gray-400">Example:</p><p>For a Content Creator, I can develop a tool that automatically extracts audio transcripts from video and formats them for blog posts or social media captions.</p></div></div>
                 </div>
             </section>
             
             <!-- Vision & Goals Section -->
             <section class="mb-16 grid md:grid-cols-2 gap-8">
-                <div class="card">
-                    <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="section-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
-                        My Vision
-                    </h2>
-                    <p class="text-gray-400 leading-relaxed">
-                        My aim is to cultivate a full-stack consultancy dedicated to profoundly enhancing how businesses operate. The goal is to combine cutting-edge technology with increased operational autonomy, empowering the individual business owner to achieve the output and impact of a much larger enterprise.
-                    </p>
-                </div>
-                <div class="card">
-                    <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="section-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
-                        Goals in Progress
-                    </h2>
-                    <ul class="list-disc list-inside text-gray-400 space-y-2">
-                        <li>Building a powerful internal business management system.</li>
-                        <li>Developing a streamlined content delivery pipeline.</li>
-                        <li>Creating a modular framework for rapid solution deployment.</li>
-                    </ul>
-                </div>
+                <div class="card"><h2 class="text-2xl font-bold text-white mb-4 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="section-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>My Vision</h2><p class="text-gray-400 leading-relaxed">My aim is to cultivate a full-stack consultancy dedicated to profoundly enhancing how businesses operate. The goal is to combine cutting-edge technology with increased operational autonomy, empowering the individual business owner to achieve the output and impact of a much larger enterprise.</p></div>
+                <div class="card"><h2 class="text-2xl font-bold text-white mb-4 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="section-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>Goals in Progress</h2><ul class="list-disc list-inside text-gray-400 space-y-2"><li>Building a powerful internal business management system.</li><li>Developing a streamlined content delivery pipeline.</li><li>Creating a modular framework for rapid solution deployment.</li></ul></div>
             </section>
 
             <!-- Call to Action Section -->
@@ -156,11 +219,10 @@
                 <p class="text-gray-400 max-w-2xl mx-auto mb-6">
                     Whether you're looking to resolve an immediate operational bottleneck, bring a long-desired process enhancement to life, or just explore ideas on optimizing your business... reach out.
                 </p>
-                <a href="#" class="cta-button inline-block">
+                <button data-src="https://cal.com/russvn/aiaudit" data-title="Book a Discovery Call" class="open-modal-button cta-button inline-block">
                     Book a Discovery Call
-                </a>
+                </button>
             </section>
-
         </main>
 
         <!-- Footer -->
@@ -168,8 +230,80 @@
             <p class="text-gray-500 italic">"There are no rules — only systems you haven’t enhanced yet."</p>
             <p class="text-gray-500 mt-4">&copy; 2025 Russ. All rights reserved.</p>
         </footer>
-
     </div>
 
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 id="modal-title" class="text-white font-semibold text-lg">Book a Discovery Call</h3>
+                <button id="modal-close-button" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-loader" class="modal-loader">Loading Page...</div>
+                <iframe id="modal-iframe" class="modal-iframe" title="Content Page"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Particles.js Animation ---
+            particlesJS('particles-js', { "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#38bdf8" }, "shape": { "type": "circle" }, "opacity": { "value": 0.3, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 3, "random": true }, "line_linked": { "enable": true, "distance": 150, "color": "#4b5563", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 2, "direction": "none", "out_mode": "out" } }, "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "push": { "particles_nb": 4 } } }, "retina_detect": true });
+
+            // --- Modal Logic ---
+            const modal = document.getElementById('booking-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalIframe = document.getElementById('modal-iframe');
+            const modalLoader = document.getElementById('modal-loader');
+            const openModalButtons = document.querySelectorAll('.open-modal-button');
+            const closeModalButton = document.getElementById('modal-close-button');
+
+            const openModal = (url, title) => {
+                document.body.classList.add('modal-open');
+                modalTitle.textContent = title;
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                    modal.querySelector('.modal-container').style.transform = 'scale(1)';
+                }, 10);
+                
+                modalLoader.style.display = 'flex';
+                modalIframe.src = 'about:blank';
+                modalIframe.src = url;
+            };
+
+            const closeModal = () => {
+                modal.style.opacity = '0';
+                modal.querySelector('.modal-container').style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.classList.remove('modal-open');
+                    modalIframe.src = 'about:blank';
+                }, 300);
+            };
+
+            modalIframe.onload = () => {
+                modalLoader.style.display = 'none';
+            };
+            
+            openModalButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const url = e.currentTarget.dataset.src;
+                    const title = e.currentTarget.dataset.title;
+                    if (url && title) {
+                        openModal(url, title);
+                    }
+                });
+            });
+
+            closeModalButton.addEventListener('click', closeModal);
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
