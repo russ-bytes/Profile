@@ -5,31 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Russ - Automations & Systems Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        /* Basic reset and body styles */
+        html, body {
+            margin: 0;
+            height: 100%;
             font-family: 'Inter', sans-serif;
-            background-color: #111827;
+            background-color: #111827; /* Fallback background */
             color: #d1d5db;
         }
-        #particles-js {
+
+        body {
+            overflow-x: hidden; /* Prevent horizontal scrollbar from animations */
+        }
+
+        /* --- SudoDev Animated Background Styles --- */
+        #background-animation-wrapper {
             position: fixed;
-            width: 100%;
-            height: 100%;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
             z-index: 0;
-            background: linear-gradient(145deg, #1f2937, #111827);
         }
-        .content-wrapper {
-            position: relative;
+
+        .large-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Modified gradient to match the original profile's dark theme */
+            background: linear-gradient(145deg, #1f2937, #111827);
             z-index: 1;
         }
+
+        #x-canvas {
+            width: 100%;
+            height: 100%;
+            opacity: 0.5; /* Make the canvas animation subtle */
+        }
+
+        .gradient-layer {
+            position: absolute;
+            width: .001vmin;
+            height: .001vmin;
+            border-radius: 50%;
+            opacity: .15; /* Lowered opacity for a more subtle effect */
+            z-index: 2;
+        }
+
+        /* Modified gradient colors to match the profile's accent color */
+        .gradient-layer:nth-of-type(1) {
+            box-shadow: 0 0 45vmax 45vmax #38bdf8; /* Accent Blue */
+            animation: hue 10s 0s linear infinite, move1 19s 0s linear infinite;
+        }
+
+        .gradient-layer:nth-of-type(2) {
+            box-shadow: 0 0 45vmax 45vmax #4b5563; /* Gray */
+            animation: hue 15s 0s linear infinite, move2 25s 0s linear infinite;
+        }
+
+        .gradient-layer:nth-of-type(3) {
+            box-shadow: 0 0 45vmax 45vmax #0ea5e9; /* Darker Accent Blue */
+            animation: hue 20s 0s linear infinite, move3 15s 0s linear infinite;
+            opacity: .1;
+        }
+
+        /* Keyframe animations for gradients */
+        @keyframes hue {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        @keyframes move1 {
+            0% { top: 0vh; left: 50vw; } 25% { left: 0vw; } 50% { top: 100vh; } 75% { left: 100vw; } 100% { top: 0vh; left: 50vw; }
+        }
+        @keyframes move2 {
+            0% { top: 50vh; left: 100vw; } 25% { top: 100vh; } 50% { left: 0vw; } 75% { top: 0vh; } 100% { top: 50vh; left: 100vw; }
+        }
+        @keyframes move3 {
+            0% { top: 100vh; left: 50vw; } 25% { left: 100vw; } 50% { top: 0vh; } 75% { left: 0vw; } 100% { top: 100vh; left: 50vw; }
+        }
+
+        /* --- Original Profile Styles --- */
+        .content-wrapper {
+            position: relative;
+            z-index: 3; /* Ensure content is above the background animations */
+        }
+
         .card {
             background-color: rgba(31, 41, 55, 0.5);
+            backdrop-filter: blur(4px); /* Add blur for a frosted glass effect over the animation */
             border: 1px solid #4b5563;
             border-radius: 0.75rem;
             padding: 1.5rem;
@@ -37,10 +108,12 @@
             position: relative;
             overflow: hidden;
         }
+
         .card:hover {
             border-color: #38bdf8;
             transform: translateY(-5px);
         }
+
         .card::before {
             content: '';
             position: absolute;
@@ -51,18 +124,22 @@
             background: linear-gradient(120deg, transparent, rgba(56, 189, 248, 0.3), transparent);
             transition: left 0.6s ease;
         }
+
         .card:hover::before {
             left: 100%;
         }
+
         .accent-text {
             color: #38bdf8;
         }
+
         .section-icon {
             width: 24px;
             height: 24px;
             margin-right: 0.75rem;
             color: #38bdf8;
         }
+
         .cta-button {
             background-color: #0ea5e9;
             color: white;
@@ -73,21 +150,20 @@
             box-shadow: 0 4px 14px 0 rgba(14, 165, 233, 0.39);
             cursor: pointer;
         }
+
         .cta-button:hover {
             background-color: #0284c7;
             transform: scale(1.05);
         }
-        
-        /* --- Link Animation Styles --- */
+
         .link {
             color: #7dd3fc;
             font-weight: 500;
             transition: all 0.3s ease;
-            position: relative; /* Needed for the underline pseudo-element */
-            padding-bottom: 5px; /* Space for the underline */
+            position: relative;
+            padding-bottom: 5px;
         }
 
-        /* The animated underline */
         .link::after {
             content: '';
             position: absolute;
@@ -96,101 +172,68 @@
             bottom: 0;
             left: 0;
             background-color: #38bdf8;
-            transform: scaleX(0); /* Start with no width */
+            transform: scaleX(0);
             transform-origin: bottom right;
             transition: transform 0.3s ease-out;
         }
 
         .link:hover {
             color: #ffffff;
-            transform: translateY(-3px); /* Move link up on hover */
+            transform: translateY(-3px);
         }
 
-        /* Animate the underline to full width on hover */
         .link:hover::after {
             transform: scaleX(1);
             transform-origin: bottom left;
         }
-
-        /* Modal Styles */
+        
+        /* --- Modal Styles (Unchanged) --- */
         .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(17, 24, 39, 0.8);
-            backdrop-filter: blur(4px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(17, 24, 39, 0.8); backdrop-filter: blur(4px);
+            display: none; align-items: center; justify-content: center;
+            z-index: 1000; opacity: 0; transition: opacity 0.3s ease-in-out;
         }
         .modal-container {
-            background-color: #1f2937;
-            border-radius: 0.75rem;
-            border: 1px solid #4b5563;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            width: 95%;
-            height: 90%;
-            max-width: 1024px;
-            display: flex;
-            flex-direction: column;
-            transform: scale(0.95);
-            transition: transform 0.3s ease-in-out;
+            background-color: #1f2937; border-radius: 0.75rem; border: 1px solid #4b5563;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); width: 95%; height: 90%;
+            max-width: 1024px; display: flex; flex-direction: column;
+            transform: scale(0.95); transition: transform 0.3s ease-in-out;
         }
         .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid #4b5563;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 1.5rem; border-bottom: 1px solid #4b5563;
         }
-        .modal-body {
-            flex-grow: 1;
-            position: relative;
-        }
+        .modal-body { flex-grow: 1; position: relative; }
         .modal-iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            border-bottom-left-radius: 0.75rem;
-            border-bottom-right-radius: 0.75rem;
+            width: 100%; height: 100%; border: 0;
+            border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem;
         }
         .modal-close-btn {
-            background: none;
-            border: none;
-            color: #9ca3af;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s;
+            background: none; border: none; color: #9ca3af;
+            font-size: 1.5rem; cursor: pointer; transition: color 0.3s;
         }
-        .modal-close-btn:hover {
-            color: #ffffff;
-        }
+        .modal-close-btn:hover { color: #ffffff; }
         .modal-loader {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 1.2rem;
-            background-color: #1f2937;
-            z-index: 1;
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.2rem; background-color: #1f2937; z-index: 1;
         }
-        body.modal-open {
-            overflow: hidden;
-        }
+        body.modal-open { overflow: hidden; }
     </style>
 </head>
 <body class="antialiased">
-    <div id="particles-js"></div>
+    <!-- SudoDev Animated Background -->
+    <div id="background-animation-wrapper">
+        <div id="large-header" class="large-header">
+            <canvas id="x-canvas"></canvas>
+        </div>
+        <div class="gradient-layer"></div>
+        <div class="gradient-layer"></div>
+        <div class="gradient-layer"></div>
+    </div>
+
+    <!-- Original Profile Content -->
     <div class="content-wrapper max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
 
         <!-- Header Section -->
@@ -285,8 +328,181 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // --- Particles.js Animation ---
-            particlesJS('particles-js', { "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#38bdf8" }, "shape": { "type": "circle" }, "opacity": { "value": 0.3, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 3, "random": true }, "line_linked": { "enable": true, "distance": 150, "color": "#4b5563", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 2, "direction": "none", "out_mode": "out" } }, "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "push": { "particles_nb": 4 } } }, "retina_detect": true });
+            // --- Constellation animation script ---
+            (function() {
+                var width, height, largeHeader, canvas, ctx, points, target, animateHeader = true;
+
+                function initHeader() {
+                    width = window.innerWidth;
+                    height = window.innerHeight;
+                    target = {x: width/2, y: height/2};
+
+                    largeHeader = document.getElementById('large-header');
+                    largeHeader.style.height = height+'px';
+
+                    canvas = document.getElementById('x-canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx = canvas.getContext('2d');
+
+                    points = [];
+                    var puntitos = 20;
+                    for(var x = 0; x < width; x = x + width/puntitos) {
+                        for(var y = 0; y < height; y = y + height/puntitos) {
+                            var px = x + Math.random()*width/puntitos;
+                            var py = y + Math.random()*height/puntitos;
+                            var p = {x: px, originX: px, y: py, originY: py };
+                            points.push(p);
+                        }
+                    }
+
+                    for(var i = 0; i < points.length; i++) {
+                        var closest = [];
+                        var p1 = points[i];
+                        for(var j = 0; j < points.length; j++) {
+                            var p2 = points[j]
+                            if(!(p1 == p2)) {
+                                var placed = false;
+                                for(var k = 0; k < 5; k++) {
+                                    if(!placed) {
+                                        if(closest[k] == undefined) {
+                                            closest[k] = p2;
+                                            placed = true;
+                                        }
+                                    }
+                                }
+                                for(var k = 0; k < 5; k++) {
+                                    if(!placed) {
+                                        if(getDistance(p1, p2) < getDistance(p1, closest[k])) {
+                                            closest[k] = p2;
+                                            placed = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        p1.closest = closest;
+                    }
+
+                    for(var i in points) {
+                        var c = new Circle(points[i], 2+Math.random()*2, 'rgba(56, 189, 248, 1)'); // Use accent color
+                        points[i].circle = c;
+                    }
+                }
+
+                function addListeners() {
+                    if(!('ontouchstart' in window)) {
+                        window.addEventListener('mousemove', mouseMove);
+                    }
+                    window.addEventListener('scroll', scrollCheck);
+                    window.addEventListener('resize', resize);
+                }
+
+                function mouseMove(e) {
+                    var posx = 0, posy = 0;
+                    if (e.pageX || e.pageY) {
+                        posx = e.pageX;
+                        posy = e.pageY;
+                    }
+                    else if (e.clientX || e.clientY)    {
+                        posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+                        posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+                    }
+                    target.x = posx;
+                    target.y = posy;
+                }
+
+                function scrollCheck() {
+                    // This can be adjusted if you want the animation to stop on scroll
+                    if(document.body.scrollTop > height) animateHeader = true; // Keep it animating
+                    else animateHeader = true;
+                }
+
+                function resize() {
+                    width = window.innerWidth;
+                    height = window.innerHeight;
+                    largeHeader.style.height = height+'px';
+                    canvas.width = width;
+                    canvas.height = height;
+                }
+
+                function animate() {
+                    if(animateHeader) {
+                        ctx.clearRect(0,0,width,height);
+                        for(var i in points) {
+                            if(Math.abs(getDistance(target, points[i])) < 4000) {
+                                points[i].active = 0.3;
+                                points[i].circle.active = 0.6;
+                            } else if(Math.abs(getDistance(target, points[i])) < 20000) {
+                                points[i].active = 0.1;
+                                points[i].circle.active = 0.3;
+                            } else if(Math.abs(getDistance(target, points[i])) < 40000) {
+                                points[i].active = 0.02;
+                                points[i].circle.active = 0.1;
+                            } else {
+                                points[i].active = 0;
+                                points[i].circle.active = 0;
+                            }
+                            drawLines(points[i]);
+                            points[i].circle.draw();
+                        }
+                    }
+                    requestAnimationFrame(animate);
+                }
+
+                function shiftPoint(p) {
+                    TweenLite.to(p, 1+1*Math.random(), {x:p.originX-50+Math.random()*100,
+                        y: p.originY-50+Math.random()*100, ease:Circ.easeInOut,
+                        onComplete: function() {
+                            shiftPoint(p);
+                        }});
+                }
+
+                function drawLines(p) {
+                    if(!p.active) return;
+                    for(var i in p.closest) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p.closest[i].x, p.closest[i].y);
+                        // Use a color that matches the theme
+                        ctx.strokeStyle = 'rgba(75, 85, 99, '+ p.active+')'; // gray-500
+                        ctx.stroke();
+                    }
+                }
+
+                function Circle(pos,rad,color) {
+                    var _this = this;
+                    (function() {
+                        _this.pos = pos || null;
+                        _this.radius = rad || null;
+                        _this.color = color || null;
+                    })();
+                    this.draw = function() {
+                        if(!_this.active) return;
+                        ctx.beginPath();
+                        ctx.arc(_this.pos.x, _this.pos.y, _this.radius, 0, 2 * Math.PI, false);
+                        // Use a color that matches the theme accent
+                        ctx.fillStyle = 'rgba(56, 189, 248, '+ _this.active+')';
+                        ctx.fill();
+                    };
+                }
+
+                function getDistance(p1, p2) {
+                    return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
+                }
+
+                // Main execution
+                initHeader();
+                initAnimation();
+                addListeners();
+
+                function initAnimation() {
+                    animate();
+                    for(var i in points) {
+                        shiftPoint(points[i]);
+                    }
+                }
+            })();
 
             // --- Modal Logic ---
             const modal = document.getElementById('booking-modal');
