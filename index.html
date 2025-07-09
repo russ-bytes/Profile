@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Russ - Automations & Systems Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -22,8 +21,8 @@
         body {
             overflow-x: hidden; /* Prevent horizontal scrollbar from animations */
         }
-
-        /* --- SudoDev Animated Background Styles --- */
+        
+        /* --- Animated Gradient Background --- */
         #background-animation-wrapper {
             position: fixed;
             top: 0;
@@ -34,21 +33,14 @@
             z-index: 0;
         }
 
-        .large-header {
+        .background-base {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* Modified gradient to match the original profile's dark theme */
             background: linear-gradient(145deg, #1f2937, #111827);
             z-index: 1;
-        }
-
-        #x-canvas {
-            width: 100%;
-            height: 100%;
-            opacity: 0.5; /* Make the canvas animation subtle */
         }
 
         .gradient-layer {
@@ -56,11 +48,10 @@
             width: .001vmin;
             height: .001vmin;
             border-radius: 50%;
-            opacity: .15; /* Lowered opacity for a more subtle effect */
+            opacity: .15;
             z-index: 2;
         }
 
-        /* Modified gradient colors to match the profile's accent color */
         .gradient-layer:nth-of-type(1) {
             box-shadow: 0 0 45vmax 45vmax #38bdf8; /* Accent Blue */
             animation: hue 10s 0s linear infinite, move1 19s 0s linear infinite;
@@ -77,7 +68,6 @@
             opacity: .1;
         }
 
-        /* Keyframe animations for gradients */
         @keyframes hue {
             0% { filter: hue-rotate(0deg); }
             100% { filter: hue-rotate(360deg); }
@@ -92,15 +82,89 @@
             0% { top: 100vh; left: 50vw; } 25% { left: 100vw; } 50% { top: 0vh; } 75% { left: 0vw; } 100% { top: 100vh; left: 50vw; }
         }
 
+        /* --- 3D Profile Badge Styles --- */
+        #profile-badge {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            background-color: rgba(31, 41, 55, 0.5);
+            backdrop-filter: blur(4px);
+            border: 1px solid #4b5563;
+            border-radius: 0.75rem;
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.1s ease-out;
+            z-index: 10;
+            padding: 2rem;
+        }
+
+        #profile-badge .shine-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.75rem;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.2), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            pointer-events: none;
+        }
+        
+        #profile-badge:hover .shine-overlay {
+            opacity: 1;
+        }
+        
+        /* --- Nav Bar Below Badge --- */
+        .header-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: -2rem; /* Pulls the nav up slightly into the badge's margin */
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 20; /* Ensures nav is above the badge's drop shadow */
+        }
+
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            background-color: rgba(31, 41, 55, 0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid #4b5563;
+            border-radius: 0.5rem;
+            color: #d1d5db;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-4px);
+            border-color: #38bdf8;
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
+        }
+
+        .nav-button svg {
+            margin-right: 0.5rem;
+            height: 1.25rem;
+            width: 1.25rem;
+        }
+
+
         /* --- Original Profile Styles --- */
         .content-wrapper {
             position: relative;
-            z-index: 3; /* Ensure content is above the background animations */
+            z-index: 3;
         }
 
         .card {
             background-color: rgba(31, 41, 55, 0.5);
-            backdrop-filter: blur(4px); /* Add blur for a frosted glass effect over the animation */
+            backdrop-filter: blur(4px);
             border: 1px solid #4b5563;
             border-radius: 0.75rem;
             padding: 1.5rem;
@@ -155,37 +219,6 @@
             background-color: #0284c7;
             transform: scale(1.05);
         }
-
-        .link {
-            color: #7dd3fc;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            padding-bottom: 5px;
-        }
-
-        .link::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: #38bdf8;
-            transform: scaleX(0);
-            transform-origin: bottom right;
-            transition: transform 0.3s ease-out;
-        }
-
-        .link:hover {
-            color: #ffffff;
-            transform: translateY(-3px);
-        }
-
-        .link:hover::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
         
         /* --- Modal Styles (Unchanged) --- */
         .modal-overlay {
@@ -223,42 +256,48 @@
     </style>
 </head>
 <body class="antialiased">
-    <!-- SudoDev Animated Background -->
+
+    <!-- Animated Gradient Background -->
     <div id="background-animation-wrapper">
-        <div id="large-header" class="large-header">
-            <canvas id="x-canvas"></canvas>
-        </div>
+        <div class="background-base"></div>
         <div class="gradient-layer"></div>
         <div class="gradient-layer"></div>
         <div class="gradient-layer"></div>
     </div>
 
-    <!-- Original Profile Content -->
+    <!-- Page Content -->
     <div class="content-wrapper max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
 
-        <!-- Header Section -->
-        <header class="text-center mb-16">
-            <img src="https://avatars.githubusercontent.com/u/208749486?v=4" alt="Russ - Avatar" class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-gray-600 shadow-lg">
-            <h1 class="text-4xl md:text-5xl font-bold text-white">Hey there, I'm Russ</h1>
-            <p class="text-lg md:text-xl accent-text mt-2 font-semibold">Automations Consultant | Systems Engineer | Builder of Better Processes</p>
-            <p class="max-w-2xl mx-auto mt-4 text-gray-400">
-                Backend brain for hire. I hack systems, wire automations, and scale ops with code. One-man automation engine running on caffeine and chaos.
-            </p>
-            <div class="mt-8 flex justify-center items-center space-x-8">
-                <a href="https://russ-bytes.github.io/augment" target="_blank" class="link flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3m0 18a9 9 0 009-9m-9 9a9 9 0 00-9-9" /></svg>
-                    Augment Me
-                </a>
-                <a href="https://russ-bytes.github.io/infoAI/" target="_blank" class="link flex items-center">
-                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
-                    Use Cases
-                </a>
-                <a href="https://www.linkedin.com/in/russel-van-niekerk-a3321423" target="_blank" class="link flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    LinkedIn
-                </a>
+        <!-- Header Section / 3D Badge -->
+        <header id="profile-badge" class="mb-16">
+            <div class="shine-overlay"></div>
+            <!-- Avatar -->
+            <img src="https://avatars.githubusercontent.com/u/208749486?v=4" alt="Russ - Avatar" class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-gray-600 shadow-lg flex-shrink-0">
+            <!-- Text Content -->
+            <div class="text-left">
+                <h1 class="text-3xl md:text-5xl font-bold text-white">Hey there, I'm Russ</h1>
+                <p class="text-lg md:text-xl accent-text mt-2 font-semibold">Automations Consultant | Systems Engineer | Builder of Better Processes</p>
+                <p class="max-w-2xl mt-4 text-gray-400">
+                    Backend brain for hire. I hack systems, wire automations, and scale ops with code. One-man automation engine running on caffeine and chaos.
+                </p>
             </div>
         </header>
+        
+        <!-- Navigation Buttons -->
+        <nav class="header-nav">
+            <a href="https://russ-bytes.github.io/augment" target="_blank" class="nav-button">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3m0 18a9 9 0 009-9m-9 9a9 9 0 00-9-9" /></svg>
+                Augment Me
+            </a>
+            <a href="https://russ-bytes.github.io/infoAI/" target="_blank" class="nav-button">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                Use Cases
+            </a>
+            <a href="https://www.linkedin.com/in/russel-van-niekerk-a3321423" target="_blank" class="nav-button">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                LinkedIn
+            </a>
+        </nav>
 
         <main>
             <!-- About Me Section -->
@@ -328,181 +367,31 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // --- Constellation animation script ---
-            (function() {
-                var width, height, largeHeader, canvas, ctx, points, target, animateHeader = true;
+            
+            // --- 3D Badge Logic ---
+            const badge = document.getElementById('profile-badge');
+            if (badge) {
+                const shine = badge.querySelector('.shine-overlay');
 
-                function initHeader() {
-                    width = window.innerWidth;
-                    height = window.innerHeight;
-                    target = {x: width/2, y: height/2};
-
-                    largeHeader = document.getElementById('large-header');
-                    largeHeader.style.height = height+'px';
-
-                    canvas = document.getElementById('x-canvas');
-                    canvas.width = width;
-                    canvas.height = height;
-                    ctx = canvas.getContext('2d');
-
-                    points = [];
-                    var puntitos = 20;
-                    for(var x = 0; x < width; x = x + width/puntitos) {
-                        for(var y = 0; y < height; y = y + height/puntitos) {
-                            var px = x + Math.random()*width/puntitos;
-                            var py = y + Math.random()*height/puntitos;
-                            var p = {x: px, originX: px, y: py, originY: py };
-                            points.push(p);
-                        }
+                badge.addEventListener('mousemove', (e) => {
+                    const { width, height, left, top } = badge.getBoundingClientRect();
+                    const x = e.clientX - left;
+                    const y = e.clientY - top;
+                    const rotateX = -((y - height / 2) / height * 15).toFixed(2); // Reduced rotation for subtlety
+                    const rotateY = ((x - width / 2) / width * 15).toFixed(2);
+                    
+                    badge.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                    
+                    if (shine) {
+                        shine.style.setProperty('--x', `${x}px`);
+                        shine.style.setProperty('--y', `${y}px`);
                     }
+                });
 
-                    for(var i = 0; i < points.length; i++) {
-                        var closest = [];
-                        var p1 = points[i];
-                        for(var j = 0; j < points.length; j++) {
-                            var p2 = points[j]
-                            if(!(p1 == p2)) {
-                                var placed = false;
-                                for(var k = 0; k < 5; k++) {
-                                    if(!placed) {
-                                        if(closest[k] == undefined) {
-                                            closest[k] = p2;
-                                            placed = true;
-                                        }
-                                    }
-                                }
-                                for(var k = 0; k < 5; k++) {
-                                    if(!placed) {
-                                        if(getDistance(p1, p2) < getDistance(p1, closest[k])) {
-                                            closest[k] = p2;
-                                            placed = true;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        p1.closest = closest;
-                    }
-
-                    for(var i in points) {
-                        var c = new Circle(points[i], 2+Math.random()*2, 'rgba(56, 189, 248, 1)'); // Use accent color
-                        points[i].circle = c;
-                    }
-                }
-
-                function addListeners() {
-                    if(!('ontouchstart' in window)) {
-                        window.addEventListener('mousemove', mouseMove);
-                    }
-                    window.addEventListener('scroll', scrollCheck);
-                    window.addEventListener('resize', resize);
-                }
-
-                function mouseMove(e) {
-                    var posx = 0, posy = 0;
-                    if (e.pageX || e.pageY) {
-                        posx = e.pageX;
-                        posy = e.pageY;
-                    }
-                    else if (e.clientX || e.clientY)    {
-                        posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-                        posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-                    }
-                    target.x = posx;
-                    target.y = posy;
-                }
-
-                function scrollCheck() {
-                    // This can be adjusted if you want the animation to stop on scroll
-                    if(document.body.scrollTop > height) animateHeader = true; // Keep it animating
-                    else animateHeader = true;
-                }
-
-                function resize() {
-                    width = window.innerWidth;
-                    height = window.innerHeight;
-                    largeHeader.style.height = height+'px';
-                    canvas.width = width;
-                    canvas.height = height;
-                }
-
-                function animate() {
-                    if(animateHeader) {
-                        ctx.clearRect(0,0,width,height);
-                        for(var i in points) {
-                            if(Math.abs(getDistance(target, points[i])) < 4000) {
-                                points[i].active = 0.3;
-                                points[i].circle.active = 0.6;
-                            } else if(Math.abs(getDistance(target, points[i])) < 20000) {
-                                points[i].active = 0.1;
-                                points[i].circle.active = 0.3;
-                            } else if(Math.abs(getDistance(target, points[i])) < 40000) {
-                                points[i].active = 0.02;
-                                points[i].circle.active = 0.1;
-                            } else {
-                                points[i].active = 0;
-                                points[i].circle.active = 0;
-                            }
-                            drawLines(points[i]);
-                            points[i].circle.draw();
-                        }
-                    }
-                    requestAnimationFrame(animate);
-                }
-
-                function shiftPoint(p) {
-                    TweenLite.to(p, 1+1*Math.random(), {x:p.originX-50+Math.random()*100,
-                        y: p.originY-50+Math.random()*100, ease:Circ.easeInOut,
-                        onComplete: function() {
-                            shiftPoint(p);
-                        }});
-                }
-
-                function drawLines(p) {
-                    if(!p.active) return;
-                    for(var i in p.closest) {
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p.closest[i].x, p.closest[i].y);
-                        // Use a color that matches the theme
-                        ctx.strokeStyle = 'rgba(75, 85, 99, '+ p.active+')'; // gray-500
-                        ctx.stroke();
-                    }
-                }
-
-                function Circle(pos,rad,color) {
-                    var _this = this;
-                    (function() {
-                        _this.pos = pos || null;
-                        _this.radius = rad || null;
-                        _this.color = color || null;
-                    })();
-                    this.draw = function() {
-                        if(!_this.active) return;
-                        ctx.beginPath();
-                        ctx.arc(_this.pos.x, _this.pos.y, _this.radius, 0, 2 * Math.PI, false);
-                        // Use a color that matches the theme accent
-                        ctx.fillStyle = 'rgba(56, 189, 248, '+ _this.active+')';
-                        ctx.fill();
-                    };
-                }
-
-                function getDistance(p1, p2) {
-                    return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
-                }
-
-                // Main execution
-                initHeader();
-                initAnimation();
-                addListeners();
-
-                function initAnimation() {
-                    animate();
-                    for(var i in points) {
-                        shiftPoint(points[i]);
-                    }
-                }
-            })();
+                badge.addEventListener('mouseleave', () => {
+                    badge.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+                });
+            }
 
             // --- Modal Logic ---
             const modal = document.getElementById('booking-modal');
